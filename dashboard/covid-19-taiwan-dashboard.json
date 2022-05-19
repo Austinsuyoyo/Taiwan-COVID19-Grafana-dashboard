@@ -1,0 +1,1646 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_COVID-19",
+      "label": "covid-19",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "marcusolsson-json-datasource",
+      "pluginName": "JSON API"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.5.2"
+    },
+    {
+      "type": "datasource",
+      "id": "marcusolsson-json-datasource",
+      "name": "JSON API",
+      "version": "1.3.1"
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Get Data from Set https://covid-19.nchc.org.tw/api/covid19",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": 16301,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "em0gu9lnk"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 24,
+      "panels": [],
+      "title": "台灣疫情總攬",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=4048",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 50000
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "最後更新日期"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.0.a01",
+              "name": "最後更新日期",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.0.a06",
+              "language": "jsonpath",
+              "name": "今日確診",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "4048"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "今日疫情通報",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=4001",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 50000
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "最後更新日期"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "新增確診"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "累計死亡"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "新增死亡"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "/.*/",
+          "values": false
+        },
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.0.a04",
+              "name": "最後更新日期",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.0.a06",
+              "language": "jsonpath",
+              "name": "新增確診",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.0.a05",
+              "language": "jsonpath",
+              "name": "累計確診",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.0.a09",
+              "language": "jsonpath",
+              "name": "新增死亡",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.0.a08",
+              "language": "jsonpath",
+              "name": "累計死亡",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.0.a32",
+              "language": "jsonpath",
+              "name": "解封指數"
+            }
+          ],
+          "headers": [
+            [
+              "Content-Type",
+              "application/json"
+            ]
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "4001"
+            ],
+            [
+              "limited",
+              "TWN"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "今日疫情通報",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=4051",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 4,
+            "pointSize": 10,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "新增確診數"
+            },
+            "properties": [
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "七天移動平均新增確診數"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 13
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.*.a06",
+              "language": "jsonpath",
+              "name": "新增確診數",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.*.a07",
+              "language": "jsonpath",
+              "name": "七天移動平均新增確診數",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.*.a04",
+              "language": "jsonpath",
+              "name": "日期",
+              "type": "time"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "4051"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "疫情每日統計圖",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=4002",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ">=70"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "60-70"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "40-60"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "20-40"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "<20"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 12,
+        "y": 13
+      },
+      "id": 13,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$count($filter(a04,function($i){ $number($i)>=70 }))",
+              "language": "jsonata",
+              "name": ">=70",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$count($filter(a04,function($i){ $number($i) < 70 and $number($i) >= 60 }))",
+              "language": "jsonata",
+              "name": "60-70",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$count($filter(a04,function($i){ $number($i) < 60 and $number($i) >= 40 }))",
+              "language": "jsonata",
+              "name": "40-60"
+            },
+            {
+              "jsonPath": "$count($filter(a04,function($i){ $number($i) < 40 and $number($i) >= 20 }))",
+              "language": "jsonata",
+              "name": "20-40"
+            },
+            {
+              "jsonPath": "$count($filter(a04,function($i){ $number($i) < 20 }))",
+              "language": "jsonata",
+              "name": "<20"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "4002"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "死亡人數-年齡分布",
+      "transformations": [],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=4002",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "男"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "女"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 16,
+        "y": 13
+      },
+      "id": 12,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$count($filter(a03,function($i){ $i='男' }))",
+              "language": "jsonata",
+              "name": "男",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$count($filter(a03,function($i){ $i='女' }))",
+              "language": "jsonata",
+              "name": "女",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "4002"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "死亡人數-性別分布",
+      "transformations": [],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=4002",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "有慢性病史"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "無慢性病史"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "調查中"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 20,
+        "y": 13
+      },
+      "id": 14,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$count($filter(a05,function($i){ $boolean($i) }))-$count($filter(a05,function($i){ $i='無'}))",
+              "language": "jsonata",
+              "name": "有慢性病史",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$count($filter(a05,function($i){ $i='調查中' }))",
+              "language": "jsonata",
+              "name": "調查中",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$count($filter(a05,function($i){ $not($boolean($i))}))+$count($filter(a05,function($i){ $i='無'}))",
+              "language": "jsonata",
+              "name": "無慢性病史"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "4002"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "死亡人數-病史分布",
+      "transformations": [],
+      "type": "piechart"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "em0gu9lnk"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 21,
+      "panels": [],
+      "title": "各縣市總攬",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=5002",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "right",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[?(@.a04=='全區')].a02",
+              "language": "jsonpath",
+              "name": "日期",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$[?(@.a04=='全區')].a03",
+              "language": "jsonpath",
+              "name": "縣市",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$[?(@.a04=='全區')].a05",
+              "language": "jsonpath",
+              "name": "新增確診人數",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "5002"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "各縣市累計確診數",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=5002",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000
+              },
+              {
+                "color": "orange",
+                "value": 5000
+              },
+              {
+                "color": "red",
+                "value": 10000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 23
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$[?(@.a04=='全區')].a02",
+              "language": "jsonpath",
+              "name": "日期",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$[?(@.a04=='全區')].a03",
+              "language": "jsonpath",
+              "name": "縣市",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$[?(@.a04=='全區')].a05",
+              "language": "jsonpath",
+              "name": "新增確診人數",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "5002"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "各縣市累計確診數",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "em0gu9lnk"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 19,
+      "panels": [],
+      "title": "疫苗施打總攬",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=2006",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 70
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 16,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^第三劑接總率$/",
+          "values": true
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "[$filter($,function($i){$i.a01=a01[-1] and $i.a03='總計'})].a02",
+              "language": "jsonata",
+              "name": "縣市",
+              "type": "string"
+            },
+            {
+              "jsonPath": "[$filter($,function($i){$i.a01=a01[-1] and $i.a03='總計'})].a07",
+              "language": "jsonata",
+              "name": "第三劑接總率",
+              "type": "number"
+            }
+          ],
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "2006"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "各縣市第三劑接種率",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=2006",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "fillOpacity": 99,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 0,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 17,
+      "options": {
+        "barRadius": 0.5,
+        "barWidth": 0.85,
+        "groupWidth": 0.79,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right"
+        },
+        "orientation": "auto",
+        "showValue": "never",
+        "stacking": "none",
+        "text": {},
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": -45,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.4.5",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "[$filter($,function($i){$i.a01=a01[-1] and $i.a03='總計'})].a02",
+              "language": "jsonata",
+              "name": "縣市",
+              "type": "string"
+            },
+            {
+              "jsonPath": "[$filter($,function($i){$i.a01=a01[-1] and $i.a03='總計'})].a04.$number()",
+              "language": "jsonata",
+              "name": "第一劑接種率"
+            },
+            {
+              "jsonPath": "[$filter($,function($i){$i.a01=a01[-1] and $i.a03='總計'})].a05.$number()",
+              "language": "jsonata",
+              "name": "第二劑接種率"
+            },
+            {
+              "jsonPath": "[$filter($,function($i){$i.a01=a01[-1] and $i.a03='總計'})].a07.$number()",
+              "language": "jsonata",
+              "name": "第三劑接總率"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "2006"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "各縣市接種率",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_COVID-19}"
+      },
+      "description": "Get Data from https://covid-19.nchc.org.tw/api.php?tableID=2004",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_COVID-19}"
+          },
+          "fields": [
+            {
+              "jsonPath": "[$filter($,function($i){$i.a03!='ALL'})].a02",
+              "language": "jsonata",
+              "name": "日期",
+              "type": "time"
+            },
+            {
+              "jsonPath": "[$filter($,function($i){$i.a03!='ALL'})].a03",
+              "language": "jsonata",
+              "name": "疫苗廠牌",
+              "type": "string"
+            },
+            {
+              "jsonPath": "[$filter($,function($i){$i.a03!='ALL'})].a10.$number()",
+              "language": "jsonata",
+              "name": "總共累計接種人次",
+              "type": "number"
+            }
+          ],
+          "hide": false,
+          "method": "GET",
+          "params": [
+            [
+              "CK",
+              "covid-19@nchc.org.tw"
+            ],
+            [
+              "querydata",
+              "2004"
+            ]
+          ],
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "累計接種人次",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-90d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Covid-19 Taiwan Dashboard New",
+  "uid": "5AuCd5u7k",
+  "version": 19,
+  "weekStart": ""
+}
